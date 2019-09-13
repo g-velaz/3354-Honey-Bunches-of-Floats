@@ -1,5 +1,5 @@
 # Honey Bunches of Floats
-SE 3354 Android Semester Project: TOPIC GOES HERE
+SE 3354 Android Semester Project: <TOPIC GOES HERE>
 
 Team Members:
 + Sophia Maloney
