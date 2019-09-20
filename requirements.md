@@ -4,8 +4,9 @@
 
 | Acronym | Meaning |
 |---------|---------|
-|   UTD  | The University of Texas at Dallas | 
-| *Name* |        The name of project        | 
+| UTD | The University of Texas at Dallas | 
+| *Name* | The name of project | 
+| SMS | Short Message Service |
 
 
 **Functional Requirements**
