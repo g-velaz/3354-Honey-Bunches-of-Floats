@@ -2,6 +2,8 @@
 
 **Definitions, Acronyms, and Abbreviations**
 
+| Acronym | Meaning |
+|---------|---------|
 |   UTD  | The University of Texas at Dallas | 
 | *Name* |        The name of project        | 
 
