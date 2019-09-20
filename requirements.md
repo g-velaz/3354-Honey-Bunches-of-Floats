@@ -2,7 +2,7 @@
 
 **Definitions, Acronyms, and Abbreviations**
 
-UTD -> The University of Texas at Dallas
+UTD -> The University of Texas at Dallas \n
 *Name*  ->  The name of project
 
 
