@@ -11,15 +11,15 @@
 
 **Functional Requirements**
 
-1.1 The system functions will allow users to compose and edit messages prior to being sent.
+1. The system functions will allow users to compose and edit messages prior to being sent.
 
-1.2 The system shall allow users to send messages to others.
+    1.1 The system shall allow users to send messages to others.
 
-1.3 The system shall allow the user to recieve messages from other users.
+    1.2The system shall allow the user to recieve messages from other users.
 
-1.4 The system shall allow the user to reply to messages.
+    1.3The system shall allow the user to reply to messages.
 
-1.5 The system shall allow the user to forward messages to other users.
+    1.4The system shall allow the user to forward messages to other users.
 
 **Use Case Diagram**
 
