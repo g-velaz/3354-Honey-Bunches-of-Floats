@@ -11,8 +11,11 @@
 
 **Functional Requirements**
 1.1 The system functions will allow users to compose and edit messages prior to being sent.
+
 1.2 The system shall allow users to send messages to others.
+
 1.3 The system shall allow users to delete messages from their view after being sent.
+
 1.4 The system shal allow the user to recieve messages from other users.
 
 **Use Case Diagram**
