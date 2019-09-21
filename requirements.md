@@ -22,10 +22,10 @@
         2.2     The system shall ask the user permission to access SMS messages on the device.       
         2.3     The system shall ask the user permission to send and receive SMS messages from the device.  
         2.4     The system shall ask the user permission to access contacts on the device.
-3. The system shall allow the user to view previously sent and received messages and change the display to suit their preferences.
-        3.1     The system shall be able to scroll up and down through past messages.
-        3.2     The system shall be able to increase or decrease the font of text.
-        3.3     The system shall display the difference between unread and read messages.
+3. The system shall allow the user to view previously sent and received messages and change the display to suit their preferences.   
+        3.1     The system shall be able to scroll up and down through past messages.   
+        3.2     The system shall be able to increase or decrease the font of text.   
+        3.3     The system shall display the difference between unread and read messages.   
 
         
 **Use Case Diagram**
