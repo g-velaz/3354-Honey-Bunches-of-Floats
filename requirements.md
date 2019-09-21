@@ -20,8 +20,8 @@
 2.  The system shall ask the user the permissions needed for the use of the SMS messenger application.   
         2.1     The system shall require the phone number of the message recipient.   
         2.2     The system shall ask the user permission to access SMS messages on the device.       
-        2.3   The system shall ask the user permission to send and receive SMS messages from the device.  
-
+        2.3     The system shall ask the user permission to send and receive SMS messages from the device.  
+        2.4     The system shall ask the user permission to access contacts on the device.
 
         
 **Use Case Diagram**
