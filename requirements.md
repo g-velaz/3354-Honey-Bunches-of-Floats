@@ -17,6 +17,10 @@
 
 1.3 The system shall allow the user to recieve messages from other users.
 
+1.4 The system shall allow the user to reply to messages.
+
+1.5 The system shall allow the user to forward messages to other users.
+
 **Use Case Diagram**
 
 
