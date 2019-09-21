@@ -16,7 +16,7 @@
         1.2     The system should allow the user to save the message as a draft should it not be sent immediately.  
         1.3     The system shall allow users to edit messages and drafts prior to being sent.  
         1.4     The system shall allow the user to send a message to the recipient.  
-
+        1.5     The system shall allow the user to reply to messages sent from another user.
 
 **Use Case Diagram**
 
