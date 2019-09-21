@@ -31,4 +31,4 @@
         
 **Use Case Diagram**
 
-
+![Use Case diagram](https://github.com/g-velaz/3354-Honey-Bunches-of-Floats/blob/master/SMS-messenger_usecasePNG.PNG?raw=true "SMS Use Case Diagram")
