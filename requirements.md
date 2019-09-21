@@ -19,6 +19,7 @@
         1.5     The system shall allow the user to reply to messages sent from another user.
 2.  The system shall ask the user the permissions needed for the use of the SMS messenger application.
         2.1     The system shall require the phone number of the message recipient.
+        
 **Use Case Diagram**
 
 
