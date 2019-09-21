@@ -10,6 +10,7 @@
 
 
 **Functional Requirements**
+
 1.1 The system functions will allow users to compose and edit messages prior to being sent.
 
 1.2 The system shall allow users to send messages to others.
