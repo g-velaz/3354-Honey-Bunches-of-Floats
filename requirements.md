@@ -15,7 +15,7 @@
 
 1.2 The system shall allow users to send messages to others.
 
-1.3 The system shal allow the user to recieve messages from other users.
+1.3 The system shall allow the user to recieve messages from other users.
 
 **Use Case Diagram**
 
