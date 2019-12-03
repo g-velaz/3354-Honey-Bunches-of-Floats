@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     ListView messages;
     ArrayAdapter arrayAdapter; // array to show messages
     private static final int READ_SMS_PERMISSIONS_REQUEST = 1;
+    private static final int SEND_SMS_PERMISSIONS_REQUEST =1;
 
     EditText input; // text box at the bottom
     SmsManager smsManager = SmsManager.getDefault();
@@ -62,12 +63,14 @@ public class MainActivity extends AppCompatActivity {
     public void onSendClick(View view) {
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-            getPermissionToReadSMS(); // if permission is not already granted
+            getPermissionToSendSMS(); // if permission is not already granted
         } else {
             // parse out text
             smsManager.sendTextMessage("+1 2147999923", null, input.getText().toString(), null, null);
             // send confirmation text
             Toast.makeText(this, "Message sent!", Toast.LENGTH_SHORT).show();
+            // clear input field
+            input.setText("");
         }
     }
 
@@ -97,6 +100,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Gets permissions
+    public void getPermissionToSendSMS() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            if (shouldShowRequestPermissionRationale(Manifest.permission.SEND_SMS)) {
+                Toast.makeText(this, "Please allow permission!", Toast.LENGTH_SHORT).show();
+            }
+            requestPermissions(new String[]{Manifest.permission.SEND_SMS}, SEND_SMS_PERMISSIONS_REQUEST);
+        }
+    }
 
     // Get permission result
     @Override
@@ -104,10 +116,10 @@ public class MainActivity extends AppCompatActivity {
         // Make sure it's our original READ_CONTACTS request
         if (requestCode == READ_SMS_PERMISSIONS_REQUEST) {
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Read SMS permission granted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "SMS permission granted", Toast.LENGTH_SHORT).show();
                 refreshSmsInbox();
             } else {
-                Toast.makeText(this, "Read SMS permission denied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "SMS permission denied", Toast.LENGTH_SHORT).show();
             }
 
         } else {
