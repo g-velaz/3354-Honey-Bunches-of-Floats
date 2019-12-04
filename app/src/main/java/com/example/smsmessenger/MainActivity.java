@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.provider.ContactsContract;
 import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -51,6 +52,12 @@ public class MainActivity extends AppCompatActivity {
             refreshSmsInbox(); // if permission granted, update inbox
         }
 
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            getPermissionToReadContacts(); // get permission if permission is not already granted
+        } else {
+            refreshSmsInbox(); // if permission granted, update inbox
+        }
+      
         Button refresh = findViewById(R.id.refresh); // refresh button
 
         refresh.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
                 refreshSmsInbox();
             }
         }); // refreshes inbox when refresh button pressed
-
 
         newMessageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,25 +81,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    // Function to format send button and what it will do
-//    public void onSendClick(View view) {
-//
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-//            getPermissionToSendSMS(); // if permission is not already granted
-//        } else {
-//            // parse out text
-//            //TODO: transfer this information and send to the user and print out to the user
-//            smsManager.sendTextMessage("+1 2147999923", null, input.getText().toString(), null, null);
-//            // send confirmation text
-//            Toast.makeText(this, "Message sent!", Toast.LENGTH_SHORT).show();
-//            // clear input field
-//            input.setText("");
-//        }
-//    }
+
+    // Function to format send button and what it will do
+    public void onSendClick(View view) {
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            getPermissionToSendSMS(); // if permission is not already granted
+        } else {
+            // parse out text
+            smsManager.sendTextMessage("+1 2147999923", null, input.getText().toString(), null, null);
+            // send confirmation text
+            Toast.makeText(this, "Message sent!", Toast.LENGTH_SHORT).show();
+            // clear input field
+            input.setText("");
+        }
+    }
     
     // Refreshing inbox
     public void refreshSmsInbox() {
-
         ContentResolver contentResolver = getContentResolver();
         Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, null, null, null);
         int indexBody = smsInboxCursor.getColumnIndex("body"); // get text
@@ -142,6 +147,15 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Please allow permission!", Toast.LENGTH_SHORT).show();
             }
             requestPermissions(new String[]{Manifest.permission.READ_SMS}, READ_SMS_PERMISSIONS_REQUEST);
+        }
+    }
+
+    public void getPermissionToReadContacts() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            if (shouldShowRequestPermissionRationale(Manifest.permission.READ_CONTACTS)) {
+                Toast.makeText(this, "Please allow permission!", Toast.LENGTH_SHORT).show();
+            }
+            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, READ_CONTACTS_PERMISSIONS_REQUEST);
         }
     }
 
