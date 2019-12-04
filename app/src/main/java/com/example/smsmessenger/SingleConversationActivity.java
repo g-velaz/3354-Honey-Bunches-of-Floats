@@ -87,15 +87,6 @@ public class SingleConversationActivity extends AppCompatActivity {
             }
         });
 
-        //Button refresh = findViewById(R.menu.)
-       // if(item.getItemId())
-        //refresh.setOnClickListener(new View.OnClickListener() {
-         //   @Override
-          //  public void onClick(View v) {
-           //     refreshSmsInbox();
-           // }
-        //}); // refreshes inbox when refresh button pressed
-
         //LETTER
         //Take in the contact and get the number from the contact and set it in the textview [for now]
         //The textview will also go into filtering the adapter for the recipient

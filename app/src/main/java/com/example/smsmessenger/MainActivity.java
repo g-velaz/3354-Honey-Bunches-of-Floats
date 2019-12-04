@@ -64,12 +64,12 @@ public class MainActivity extends AppCompatActivity {
         newMessageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 //Allows me to navigate from main to add card
-        startActivity(new Intent(MainActivity.this, SingleConversationActivity.class));
-        //this is to implement after the fact bc that part doesnt exist yet
-        //intent.putExtra("sender", "address");
-        //intent.putExtra("prev", "bodyText");
-        //MainActivity.this.startActivityForResult(intent, 100);
+                //Allows me to navigate from main to add card
+                startActivity(new Intent(MainActivity.this, SingleConversationActivity.class));
+                //this is to implement after the fact bc that part doesnt exist yet
+                //intent.putExtra("sender", "address");
+                //intent.putExtra("prev", "bodyText");
+                //MainActivity.this.startActivityForResult(intent, 100);
             }
         });
 
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 //            input.setText("");
 //        }
 //    }
-    
+
     // Refreshing inbox
     public void refreshSmsInbox() {
 
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             // if message is too long, abbreviate
             if(smsInboxCursor.getString(indexBody).length() >= 35)
                 str += smsInboxCursor.getString(indexBody).substring(0,34) + "...\n";
-            // if message is not too long, output entire message
+                // if message is not too long, output entire message
             else
                 str += smsInboxCursor.getString(indexBody) + "\n";
 
