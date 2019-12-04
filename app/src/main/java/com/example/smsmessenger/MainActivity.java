@@ -62,6 +62,13 @@ public class MainActivity extends AppCompatActivity {
             }
         }); // refreshes inbox when refresh button pressed
 
+//        messages.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void OnClick(View v) {
+//
+//            }
+//        });
+
         newMessageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
