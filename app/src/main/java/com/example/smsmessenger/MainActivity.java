@@ -3,6 +3,7 @@ package com.example.smsmessenger;
 import android.Manifest;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -13,21 +14,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
+    
     ArrayList<String> smsMessagesList = new ArrayList<>(); // to list out messages
     ListView messages;
     ArrayAdapter arrayAdapter; // array to show messages
+
     private static final int READ_SMS_PERMISSIONS_REQUEST = 1;
+   // private static final String TAG = MainActivity.class.getSimpleName();
 
     EditText input; // text box at the bottom
     SmsManager smsManager = SmsManager.getDefault();
@@ -62,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     // Function to format send button and what it will do
     public void onSendClick(View view) {
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
             getPermissionToReadSMS(); // if permission is not already granted
         } else {
             // parse out text
@@ -90,11 +95,24 @@ public class MainActivity extends AppCompatActivity {
 
     // Gets permissions
     public void getPermissionToReadSMS() {
+        /*
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
             if (shouldShowRequestPermissionRationale(Manifest.permission.READ_SMS)) {
                 Toast.makeText(this, "Please allow permission!", Toast.LENGTH_SHORT).show();
             }
             requestPermissions(new String[]{Manifest.permission.READ_SMS}, READ_SMS_PERMISSIONS_REQUEST);
+        }
+*/
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            //Log.d(TAG, getString("Permission not granted!", Toast.LENGTH_SHORT));
+            Toast.makeText(this, "Please allow permission!", Toast.LENGTH_SHORT).show();
+
+            requestPermissions( new String[]{Manifest.permission.SEND_SMS},
+                    READ_SMS_PERMISSIONS_REQUEST);
+        } else {
+            // Permission already granted. Enable the SMS button.
+            //enableSmsButton();
         }
     }
 
@@ -115,25 +133,4 @@ public class MainActivity extends AppCompatActivity {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
-
-    public void smsSendMessage(View view) {
-        EditText editText = findViewById(R.id.number);
-        // Set the destination phone number to the string in editText.
-        String destinationAddress = editText.getText().toString();
-        // Find the sms_message view.
-        EditText smsEditText = findViewById(R.id.input);
-        // Get the text of the SMS message.
-        String smsMessage = smsEditText.getText().toString();
-        // Set the service center address if needed, otherwise null.
-        String scAddress = null;
-        // Set pending intents to broadcast
-        // when message sent and when delivered, or set to null.
-        PendingIntent sentIntent = null, deliveryIntent = null;
-        // Use SmsManager.
-        SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage
-                (destinationAddress, scAddress, smsMessage,
-                        sentIntent, deliveryIntent);
     }
-
-}

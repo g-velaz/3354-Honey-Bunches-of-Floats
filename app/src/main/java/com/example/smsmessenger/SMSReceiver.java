@@ -12,13 +12,13 @@ import android.widget.Toast;
 
 public class SMSReceiver extends BroadcastReceiver {
 
-    private static final String TAG =
-            SMSReceiver.class.getSimpleName();
+    private static final String TAG = SMSReceiver.class.getSimpleName();
     public static final String pdu_type = "pdus";
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onReceive(Context context, Intent intent) {
+
         Bundle bundle = intent.getExtras();
         SmsMessage[] msgs;
         String strMessage = "";
@@ -52,12 +52,6 @@ public class SMSReceiver extends BroadcastReceiver {
                 Log.d(TAG, "onReceive: " + strMessage);
                 Toast.makeText(context, strMessage, Toast.LENGTH_LONG).show();
 
-        /*
-        // TODO: This method is called when the BroadcastReceiver is receiving
-        // an Intent broadcast.
-        throw new UnsupportedOperationException("Not yet implemented");
-
-         */
             }
         }
     }
