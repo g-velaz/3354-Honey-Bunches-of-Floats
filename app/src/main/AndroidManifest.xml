@@ -7,18 +7,29 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
-    /*
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
-        //android:onClick="smsSendMessage">
+        android:theme="@style/AppTheme">
+        <receiver
+            android:name="com.example.smsmessenger.Receiver"
+            android:enabled="true"
+            android:exported="true">
 
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+                <action android:name="android.intent.action.PHONE_STATE" />
+                <action android:name="com.example.smsmessenger" />
+            </intent-filter>
+        </receiver>
 
+        <activity
+            android:name=".SingleConversationActivity"
+            android:label="@string/title_activity_single_conversation"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustResize">
@@ -29,15 +40,6 @@
             </intent-filter>
         </activity>
 
-
-        <receiver
-            android:name=".SMSReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>
