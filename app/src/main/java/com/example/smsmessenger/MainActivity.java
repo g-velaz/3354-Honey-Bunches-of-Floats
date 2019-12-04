@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
                 refreshSmsInbox();
             }
         }); // refreshes inbox when refresh button pressed
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionDar(toolbar);
 
     }
 
