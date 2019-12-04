@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> smsMessagesList = new ArrayList<>(); // to list out messages
     ListView messages;
     ArrayAdapter arrayAdapter; // array to show messages
+    ArrayAdapter arrayAdapter1;
     private static final int READ_SMS_PERMISSIONS_REQUEST = 1;
     private static final int SEND_SMS_PERMISSIONS_REQUEST =1;
 
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Refreshing inbox
     public void refreshSmsInbox() {
+
         ContentResolver contentResolver = getContentResolver();
         Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, null, null, null);
         int indexBody = smsInboxCursor.getColumnIndex("body"); // get text
@@ -85,9 +87,33 @@ public class MainActivity extends AppCompatActivity {
             return; // if no messages
         arrayAdapter.clear(); // clear current adapter so multiple of same message does not appear
         do {
-            String str = "SMS From: " + smsInboxCursor.getString(indexAddress) + "\n" + smsInboxCursor.getString(indexBody) + "\n";
-            arrayAdapter.add(str);
+            String str = smsInboxCursor.getString(indexAddress) + "\n";
+            if(smsInboxCursor.getString(indexBody).length() >= 40)
+                str += smsInboxCursor.getString(indexBody).substring(0,39) + "...\n";
+            else
+                str += smsInboxCursor.getString(indexBody) + "\n";
+
+            Object newString = str;
+            boolean compareString = compareStringToAdapter(newString);
+
+            // only adding most recent text
+            if(compareString)
+                arrayAdapter.add(str);
+
         } while (smsInboxCursor.moveToNext()); // go through each message and display each one
+    }
+
+    // Comparing string to what is already in the array adapter
+    public boolean compareStringToAdapter(Object comp) {
+        String tempComp = comp.toString();
+        String arrayString;
+
+        for(int i = 0; i < arrayAdapter.getCount();i++) {
+            arrayString = arrayAdapter.getItem(i).toString();
+            if(tempComp.substring(0,10).equals(arrayString.substring(0,10)))
+                return false;
+        }
+        return true;
     }
 
     // Gets permissions
