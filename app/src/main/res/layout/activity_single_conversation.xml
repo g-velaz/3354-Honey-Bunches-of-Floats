@@ -10,39 +10,68 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="49dp"
         android:elevation="3dp"
         android:fitsSystemWindows="true"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_default="wrap" />
-
-
-    <include layout="@layout/content_single_conversation" />
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="401dp"
-        android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constrainedWidth="true"/>
+
+
+    <ListView
+        android:id="@+id/messages"
+        android:layout_width="383dp"
+        android:layout_height="466dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="49dp"
+        app:layout_constraintTop_toBottomOf="@id/app_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/send"/>
 
     <EditText
-        android:id="@+id/input"
+        android:id="@+id/msgInput"
         android:layout_width="293dp"
         android:layout_height="49dp"
-        android:layout_marginStart="16dp"
-        android:background="@color/colorPrimary"
+        android:padding="8dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="Enter message here..."
         android:inputType="textPersonName"
+        android:background="@color/cardview_light_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/send"
+        app:layout_constraintVertical_bias="0.976" />
+
+
+
+    <EditText
+        android:id="@+id/input"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:background="@color/colorPrimary"
+        android:ems="10"
+        android:hint="To"
+        android:inputType="textPersonName"
+        android:elevation="3dp"
         android:padding="8dp"
         app:layout_constraintStart_toStartOf="@id/app_bar"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="onSendClick"
+        android:text="SEND"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
