@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.provider.ContactsContract;
 import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -27,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
     ListView messages;
     ArrayAdapter arrayAdapter; // array to show messages
     private static final int READ_SMS_PERMISSIONS_REQUEST = 1;
-    private static final int SEND_SMS_PERMISSIONS_REQUEST =1;
+    private static final int SEND_SMS_PERMISSIONS_REQUEST = 1;
+    private static final int READ_CONTACTS_PERMISSIONS_REQUEST = 1;
 
     EditText input; // text box at the bottom
     SmsManager smsManager = SmsManager.getDefault();
@@ -43,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
         messages.setAdapter(arrayAdapter); // put array in messages box
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
             getPermissionToReadSMS(); // get permission if permission is not already granted
+        } else {
+            refreshSmsInbox(); // if permission granted, update inbox
+        }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            getPermissionToReadContacts(); // get permission if permission is not already granted
         } else {
             refreshSmsInbox(); // if permission granted, update inbox
         }
@@ -85,9 +93,10 @@ public class MainActivity extends AppCompatActivity {
             return; // if no messages
         arrayAdapter.clear(); // clear current adapter so multiple of same message does not appear
         do {
-            String str = "SMS From: " + smsInboxCursor.getString(indexAddress) + "\n" + smsInboxCursor.getString(indexBody) + "\n";
-            arrayAdapter.add(str);
-        } while (smsInboxCursor.moveToNext()); // go through each message and display each one
+        String str = "SMS From: " + smsInboxCursor.getString(indexAddress) + "\n";// + smsInboxCursor.getString(indexBody) + "\n";
+        arrayAdapter.add(str); }
+        while (smsInboxCursor.moveToNext()); // go through each message and display each one
+
     }
 
     // Gets permissions
@@ -97,6 +106,15 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Please allow permission!", Toast.LENGTH_SHORT).show();
             }
             requestPermissions(new String[]{Manifest.permission.READ_SMS}, READ_SMS_PERMISSIONS_REQUEST);
+        }
+    }
+
+    public void getPermissionToReadContacts() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            if (shouldShowRequestPermissionRationale(Manifest.permission.READ_CONTACTS)) {
+                Toast.makeText(this, "Please allow permission!", Toast.LENGTH_SHORT).show();
+            }
+            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, READ_CONTACTS_PERMISSIONS_REQUEST);
         }
     }
 
