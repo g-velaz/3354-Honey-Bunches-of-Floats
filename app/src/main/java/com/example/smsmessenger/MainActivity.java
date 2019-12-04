@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             return; // if no messages
         arrayAdapter.clear(); // clear current adapter so multiple of same message does not appear
         do {
-        String str = "SMS From: " + smsInboxCursor.getString(indexAddress) + "\n";// + smsInboxCursor.getString(indexBody) + "\n";
+        String str = "SMS From: " + smsInboxCursor.getString(indexAddress) + "\n" + smsInboxCursor.getString(indexBody) + "\n";
         arrayAdapter.add(str); }
         while (smsInboxCursor.moveToNext()); // go through each message and display each one
 
