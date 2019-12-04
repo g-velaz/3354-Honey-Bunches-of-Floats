@@ -29,11 +29,9 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> smsMessagesList = new ArrayList<>(); // to list out messages
     ListView messages;
     ArrayAdapter arrayAdapter; // array to show messages
-    ArrayAdapter arrayAdapter1;
     private static final int READ_SMS_PERMISSIONS_REQUEST = 1;
     private static final int SEND_SMS_PERMISSIONS_REQUEST =1;
 
-    EditText input; // text box at the bottom
     SmsManager smsManager = SmsManager.getDefault();
 
     @Override
@@ -42,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         messages = findViewById(R.id.messages); // select box where array is going to be displayed
-        //input = findViewById(R.id.input); // select input text box at the bottom
+
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, smsMessagesList); // initialize array adapter to display text
         ImageView newMessageBtn = findViewById(R.id.newMessage);
 
@@ -62,12 +60,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }); // refreshes inbox when refresh button pressed
 
-//        messages.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void OnClick(View v) {
-//
-//            }
-//        });
 
         newMessageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,29 +73,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
 
-
-    // Function to format send button and what it will do
-    public void onSendClick(View view) {
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-            getPermissionToSendSMS(); // if permission is not already granted
-        } else {
-            // parse out text
-            //TODO: transfer this information and send to the user and print out to the user
-            smsManager.sendTextMessage("+1 2147999923", null, input.getText().toString(), null, null);
-            // send confirmation text
-            Toast.makeText(this, "Message sent!", Toast.LENGTH_SHORT).show();
-            // clear input field
-            input.setText("");
-        }
-    }
-
-
-
+//    // Function to format send button and what it will do
+//    public void onSendClick(View view) {
+//
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+//            getPermissionToSendSMS(); // if permission is not already granted
+//        } else {
+//            // parse out text
+//            //TODO: transfer this information and send to the user and print out to the user
+//            smsManager.sendTextMessage("+1 2147999923", null, input.getText().toString(), null, null);
+//            // send confirmation text
+//            Toast.makeText(this, "Message sent!", Toast.LENGTH_SHORT).show();
+//            // clear input field
+//            input.setText("");
+//        }
+//    }
+    
     // Refreshing inbox
     public void refreshSmsInbox() {
 
@@ -115,14 +102,17 @@ public class MainActivity extends AppCompatActivity {
             return; // if no messages
         arrayAdapter.clear(); // clear current adapter so multiple of same message does not appear
         do {
-            String str = smsInboxCursor.getString(indexAddress) + "\n";
-            if(smsInboxCursor.getString(indexBody).length() >= 40)
-                str += smsInboxCursor.getString(indexBody).substring(0,39) + "...\n";
+            String str = smsInboxCursor.getString(indexAddress) + "\n\n";
+            // if message is too long, abbreviate
+            if(smsInboxCursor.getString(indexBody).length() >= 35)
+                str += smsInboxCursor.getString(indexBody).substring(0,34) + "...\n";
+            // if message is not too long, output entire message
             else
                 str += smsInboxCursor.getString(indexBody) + "\n";
 
+            // to compare the phone numbers
             Object newString = str;
-            boolean compareString = compareStringToAdapter(newString);
+            boolean compareString = compareStringToAdapter(newString); // comparing new string to string in array adapter
 
             // only adding most recent text
             if(compareString)
@@ -136,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         String tempComp = comp.toString();
         String arrayString;
 
+        // comparing first 11 characters to the first 11 characters in each object of array adapter
         for(int i = 0; i < arrayAdapter.getCount();i++) {
             arrayString = arrayAdapter.getItem(i).toString();
             if(tempComp.substring(0,10).equals(arrayString.substring(0,10)))
@@ -144,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    // Gets permissions
+    // Gets permissions to read messages from inbox
     public void getPermissionToReadSMS() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
             if (shouldShowRequestPermissionRationale(Manifest.permission.READ_SMS)) {
@@ -154,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Gets permissions
+    // Gets permissions to send messages
     public void getPermissionToSendSMS() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             if (shouldShowRequestPermissionRationale(Manifest.permission.SEND_SMS)) {
