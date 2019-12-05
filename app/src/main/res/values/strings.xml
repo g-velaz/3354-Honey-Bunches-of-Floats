@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">SMS Messenger</string>
     <string name="enter_message_here">Enter message here...</string>
+
     <string name="title_activity_single_conversation">SingleConversationActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
